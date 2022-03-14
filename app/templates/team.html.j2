@@ -1,0 +1,51 @@
+{% extends 'base.html.j2' %}
+
+{%block title%}
+    Your Team
+{%endblock%}
+
+{% block content %}
+    <h1>Lets catch em all!</h1>
+    <form action = "{{url_for('team')}}" method = "POST">
+    {{form.hidden_tag()}}
+     <div>
+        {{form.poke.label(class="form-label")}}
+        {{form.poke(class="form-control")}}
+        {% for error in form.poke.errors%}
+            <small style = "color:red;">{{error}}</small>
+        {%endfor%}
+    </div>
+    <div>
+        {{form.submit(class="btn btn-primary form-control")}}
+    </div>
+
+    {# <form action="{{url_for('team')}}" method="POST">
+        <div class="mb-3">
+            <label for="poke" class="form-label">What Pokemon are you looking for?</label>
+            <input type="text" name = "poke" class="form-control" id="poke" > 
+        </div>
+        <span style = "color:red;"><small>{{ error }}</small></span>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form> #}
+    {%if mpoke %}
+    <div class="card" style="width: 18rem;">
+    <img src="{{mpoke.sprite}}" class="card-img-top" alt="mpoke sprite">
+    <div class="card-body">
+        <h5 class="card-title">{{mpoke.name}}</h5>
+        <p class="card-text">
+            <ul>
+        
+        <li>HP: {{mpoke.hp}}</li>
+        <li>Defense: {{mpoke.defense}}</li>
+        <li>Attack: {{mpoke.attack}}</li>
+        <li>Ability 1: {{mpoke.ability_1}}</li>
+        <li>Ability 2: {{mpoke.ability_2}}</li>
+        
+        </ul>
+
+        </p>
+        
+    </div>
+    {% endif %}
+    </div>
+{%endblock%}
